@@ -45,62 +45,10 @@ public class Main {
      */
     public static void mergeSort(ArrayList<Integer> arrayList) {
 
-        int splitNum = arrayList.size()/2;
-        ArrayList<Integer> lowArray= new ArrayList<Integer>();
-        ArrayList<Integer> highArray= new ArrayList<Integer>();
 
+        sort(arrayList, 0, arrayList.size());
+        merge(arrayList,0, arrayList.size()/2, arrayList.size());
 
-        //split until they are all here
-
-        int splitNum = arrayList.size()/2;
-        for(int i=0; i< splitNum; i++) {
-
-            lowArray.add(arrayList.get(i));
-        }
-
-
-
-        for(int i=0; i< splitNum; i++) {
-            lowArray.add(arrayList.get(i));
-        }
-
-        for(int i = splitNum; i< arrayList.size(); i++) {
-            highArray.add(arrayList.get(i));
-        }
-
-
-
-        int stages =
-
-
-
-
-
-
-
-            int minIndex =i;
-            for(int j=i; j < arrayList.size(); j++)
-                if (arrayList.get(j) < arrayList.get(minIndex)) {
-                    minIndex =j;
-                }
-            int min = arrayList.get(minIndex);
-            arrayList.set(minIndex, arrayList.get(i));
-            arrayList.set(i, min);
-        }
-
-        for(int i = splitNum; i< arrayList.size(); i++)
-        {
-            int minIndex =i;
-            for(int j=i; j < arrayList.size(); j++)
-                if (arrayList.get(j) < arrayList.get(minIndex)) {
-                    minIndex =j;
-                }
-            int min = arrayList.get(minIndex);
-            arrayList.set(minIndex, arrayList.get(i));
-            arrayList.set(i, min);
-        }
-
-        throw new UnsupportedOperationException("mergeSort() has not been implemented yet");
     }
 
     /**
@@ -114,23 +62,15 @@ public class Main {
      */
     public static void sort(ArrayList<Integer> arrayList, int lo, int hi) {
 
-       for(int i =0; i)
-
-        for(int i=0; i< arrayList.size(); i++)
-        lo = arrayList.get(0);
-
-        hi = arrayList.size();
-
-        if(hi<lo)
-
-
-        int splitNum = arrayList.size()/2;
-        for(int i=0; i< splitNum; i++) {
-
-            lowArray.add(arrayList.get(i));
+        if(hi - lo <= 1)
+        {
+            return;
         }
 
-        throw new UnsupportedOperationException("sort() has not been implemented yet");
+        int mid = (hi + lo) / 2;
+        sort(arrayList, lo, mid);
+        sort(arrayList, mid, hi);
+        merge(arrayList, lo, mid, hi);
     }
 
     /**
@@ -145,13 +85,43 @@ public class Main {
      */
     public static void merge(ArrayList<Integer> arrayList, int lo, int mid, int hi) {
 
-        if(arrayList.size()>1) {
-            sort(arrayList, lo, mid);
-            sort(arrayList, mid, hi);
+
+        ArrayList<Integer> tempArray = new ArrayList<Integer>();
+        int l = lo;
+        int m = mid;
+
+        while(l < mid || m < hi)
+        {
+            if(m == hi)
+            {
+                tempArray.add(arrayList.get(l));
+                l++;
+            }
+            else if(l == mid)
+            {
+                tempArray.add(arrayList.get(m));
+                m++;
+            }
+            else if(arrayList.get(m) < arrayList.get(l))
+            {
+                tempArray.add(arrayList.get(m));
+                m++;
+            }
+            else
+            {
+                tempArray.add(arrayList.get(l));
+                l++;
+            }
         }
+        for (int index = 0; index < tempArray.size(); index++) {
 
-        sort(arrayList,lo,hi);
+            arrayList.set(index + lo, tempArray.get(index));
 
-
+        }
     }
+
 }
+
+
+
+
